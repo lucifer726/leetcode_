@@ -13,35 +13,42 @@ class Solution:
     def openLock(self, deadends, target: str) -> int:
         # 记录需要跳过的死亡密码
         deads = set(deadends)
+        # 用集合不用队列，可以快速判断元素是否存在
+        q1 = set()
+        q2 = set()
         # 记录已经穷举过的密码，防止走回头路
         visited = set()
-        q = list()
+        # 初始化起点和终点
+        q1.add("0000")
+        q2.add(target)
         # 从起点开始启动广度优先搜索
         step = 0
-        q.append("0000")
-        visited.add("0000")
 
-        while q:
+        while q1 and q2:
+            # 在遍历的过程中不能修改哈希集合
+            # 用temp存储q1的扩散结果
+            temp = set()
             # 将当前队列中的所有节点向周围扩展
-            for i in range(len(q)):
-                cur = q.pop(0)
-
-                # 判断密码是否合法，是否达到终点
+            for cur in q1:
+                # 判断是否到达终点
                 if cur in deads: continue
-                if cur == target: return step
+                if cur in q2: return step
+                visited.add(cur)
 
                 # 将一个节点的未遍历相邻节点加入队列
                 for j in range(4):
                     up = self.plusOne(cur, j)
                     if up not in visited:
-                        q.append(up)
-                        visited.add(up)
+                        temp.add(up)
                     down = self.minusOne(cur, j)
                     if down not in visited:
-                        q.append(down)
-                        visited.add(down)
+                        temp.add(down)
             # 在这里增加步数
             step += 1
+            # temp相当于q1
+            # 在这里交换q1和q2，下一轮while会扩散q2
+            q1 = q2
+            q2 = temp
         # 如果穷举完都没找到，返回-1
         return -1
 
