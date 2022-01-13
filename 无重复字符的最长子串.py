@@ -1,22 +1,26 @@
 def lengthOfLongestSubstring(s):
-    if not s: return 0
-    left = 0
-    lookup = set()
-    n = len(s)
-    max_len = 0
-    cur_len = 0
-    for i in range(n):
-        cur_len += 1
-        while s[i] in lookup:
-            lookup.remove(s[left])
+    """
+    :type s: str
+    :rtype: int
+    """
+    from collections import defaultdict
+    window = defaultdict(int)
+    left, right = 0, 0
+    res = 0
+    while right < len(s):
+        c = s[right]
+        right += 1
+        window[c] += 1
+
+        while window[c] > 1:
+            d = s[left]
             left += 1
-            cur_len -= 12
-        if cur_len > max_len: max_len = cur_len
-        lookup.add(s[i])
-    return max_len
+            window[d] -= 1
+
+        res = max(res, right - left)
+
+    return res
 
 
-
-
-s = "pwwww"
+s = "pwwkew"
 print(lengthOfLongestSubstring(s))
