@@ -1,15 +1,19 @@
-def fun(nums, target):
-    Hashtable = dict()
-    ans = []
-    for i, num in enumerate(nums):
-        Hashtable[num] = i
-    for i, num in enumerate(nums):
-        j = Hashtable.get(target - num)
-        if j is not None and i != j:
-            ans.append([nums[i], nums[j]])
-    n = len(ans)//2
-    return ans[:n]
+class Solution(object):
+    def twoSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        hashtable = dict()
+        ans = []
+        for i, num in enumerate(nums):
+            if target - num in hashtable:
+                ans.append([hashtable[target - num], i])
+            hashtable[nums[i]] = i
+        return ans
 
 
 nums = [1, 3, 4, 5, 8]
-print(fun(nums, 9))
+a = Solution()
+print(a.twoSum(nums, 9))
