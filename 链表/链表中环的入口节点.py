@@ -11,15 +11,15 @@ class Solution(object):
         :type head: ListNode
         :rtype: ListNode
         """
-        fast = slow = head
-        while True:
-            if not (fast and fast.next): return
-            fast = fast.next.next
+        if not head or not head.next:
+            return None
+        slow = head.next
+        fast = head.next.next
+        while slow != fast and fast and slow and fast.next:
             slow = slow.next
-            if fast == slow: break
-
-        slow = head
-        while slow != fast:
+            fast = fast.next.next
+        fast = head
+        while slow != fast and slow and fast:
             fast = fast.next
             slow = slow.next
         return slow
