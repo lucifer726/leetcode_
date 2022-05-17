@@ -18,5 +18,5 @@ def left_bound(nums, target):
 
 
 nums = [1, 1, 2, 2, 3, 3, 4, 4]
-target = 2
+target = 3
 print(left_bound(nums, target))
