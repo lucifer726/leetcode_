@@ -47,5 +47,3 @@ class Codec:
         root.left = self.buildTree(arr)
         root.right = self.buildTree(arr)
         return root
-
-
