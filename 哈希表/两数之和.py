@@ -6,12 +6,10 @@ class Solution(object):
         :rtype: List[int]
         """
         hashtable = dict()
-        ans = []
         for i, num in enumerate(nums):
             if target - num in hashtable:
-                ans.append([hashtable[target - num], i])
-            hashtable[nums[i]] = i
-        return ans
+                return [hashtable[target - num], i]
+            hashtable[num] = i
 
 
 nums = [1, 3, 4, 5, 8]
