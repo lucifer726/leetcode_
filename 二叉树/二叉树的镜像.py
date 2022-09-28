@@ -11,7 +11,7 @@
 # @return TreeNode类
 #
 class Solution:
-    def Mirror(self , pRoot: TreeNode) -> TreeNode:
+    def Mirror(self, pRoot: TreeNode) -> TreeNode:
         # write code here
         if not pRoot:
             return None
@@ -19,3 +19,20 @@ class Solution:
         self.Mirror(pRoot.left)
         self.Mirror(pRoot.right)
         return pRoot
+
+
+# 迭代法：深度优先遍历（前序遍历）：
+class Solution:
+    def invertTree(self, root: TreeNode) -> TreeNode:
+        if not root:
+            return root
+        st = []
+        st.append(root)
+        while st:
+            node = st.pop()
+            node.left, node.right = node.right, node.left  # 中
+            if node.right:
+                st.append(node.right)  # 右
+            if node.left:
+                st.append(node.left)  # 左
+        return root
